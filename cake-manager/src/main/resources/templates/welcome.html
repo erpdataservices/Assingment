@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Cake Manager</title>
+
+<link rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+</head>
+
+<body>
+	<main role="main" class="container">
+	<form action="#" th:action="@{/}" th:modelAttribute="${cake}"
+		method="post">
+		<div class="row">
+			<h1>Cakes Display</h1>
+		</div>
+		<div class="row border border-success rounded">
+
+			<div th:if="${cakes.empty}">
+				<div class="alert alert-warning">No Cakes</div>
+			</div>
+			<div th:each="cake : ${cakes}" class="row col-6" style="width: 100%;">
+				<div class="col-4 float-left">
+					<img th:alt="${cake.title}" th:src="${cake.image}" width="120"
+						height="100" />
+				</div>
+				<div class="col-8">
+					<h5>
+						<span th:text="${cake.title}"></span>
+					</h5>
+					<p>
+						<span th:text="${cake.description}"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3"></div>
+		<div class="row border border-danger rounded">
+
+			<div class="col-xs-5 col-5">
+				<div class="form-group">
+					<label for="title">Title:</label> <input type="text"
+						class="form-control" th:field="${cake.title}" name="title"
+						required="true" data-bv-notempty-message="Title is required" /> <span
+						class="error alert alert-danger" th:if="${titleError}"><strong>Error:
+							Title already exists!</strong></span>
+				</div>
+				<div class="form-group">
+					<label for="image">Image:</label> <input type="text"
+						class="form-control" th:field="${cake.image}" name="image"
+						required="true" data-bv-notempty-message="Image is required" /> <span
+						class="error alert alert-danger" th:if="${urlError}"><strong>Error:
+							Invalid URL format!</strong></span>
+				</div>
+			</div>
+			<div class="col-xs-5 col-5">
+				<div class="form-group">
+					<label for="description">Description:</label> <input type="text"
+						class="form-control" th:field="${cake.description}"
+						name="description" required="true"
+						data-bv-notempty-message="Description is required" />
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Add Cake" />
+				</div>
+			</div>
+		</div>
+	</form>
+	</main>
+
+</body>
+<script>
+	$(document).ready(function() {
+		$('#signInForm').bootstrapValidator();
+	});
+</script>
+</html>
